@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+}
+
+html, body, #root { height: 100%; }
+body {
+  @apply bg-paper text-ink antialiased dark:bg-stone-950 dark:text-stone-100;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+input, textarea, select { font-size: 16px; } /* evita zoom no iOS */
+
+@layer components {
+  .card { @apply rounded-2xl bg-white shadow-card dark:bg-stone-900 dark:shadow-none dark:ring-1 dark:ring-stone-800; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-[15px] font-semibold transition active:scale-[.98] disabled:opacity-40 disabled:active:scale-100 select-none; }
+  .btn-primary { @apply btn bg-brand-700 text-white hover:bg-brand-800 dark:bg-brand-500 dark:hover:bg-brand-400 dark:text-stone-950; }
+  .btn-secondary { @apply btn bg-brand-50 text-brand-800 hover:bg-brand-100 dark:bg-stone-800 dark:text-brand-200 dark:hover:bg-stone-700; }
+  .btn-ghost { @apply btn bg-transparent text-brand-800 hover:bg-brand-50 dark:text-brand-200 dark:hover:bg-stone-800; }
+  .btn-danger { @apply btn bg-red-50 text-red-700 hover:bg-red-100 dark:bg-red-950/60 dark:text-red-200; }
+  .btn-confirm { @apply btn bg-red-600 text-white hover:bg-red-700; }
+  .input { @apply w-full rounded-xl border border-stone-200 bg-white px-3.5 py-3 text-[16px] outline-none placeholder:text-stone-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 dark:border-stone-700 dark:bg-stone-900 dark:placeholder:text-stone-500; }
+  .label { @apply mb-1.5 block text-[13px] font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[12px] font-semibold leading-none; }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
