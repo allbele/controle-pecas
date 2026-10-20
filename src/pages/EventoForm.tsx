@@ -74,7 +74,7 @@ export default function EventoForm() {
           <span className="label">Coordenadores</span>
           <div className="flex flex-wrap gap-2">
             {conhecidos.map((c) => (
-              <button type="button" key={c} onClick={() => alterna(c)} className={`chip !px-3 !py-2 !text-[13px] ${coords.includes(c) ? 'bg-brand-700 text-white dark:bg-brand-500 dark:text-stone-950' : 'bg-white text-stone-700 ring-1 ring-stone-200 dark:bg-stone-900 dark:text-stone-200 dark:ring-stone-700'}`}>{c}</button>
+              <button type="button" key={c} onClick={() => alterna(c)} className={`chip !px-3 !py-2 !text-[13px] ${coords.includes(c) ? 'bg-brand-700 text-white' : 'bg-white text-stone-700 ring-1 ring-stone-200'}`}>{c}</button>
             ))}
           </div>
           <div className="mt-2 flex gap-2">

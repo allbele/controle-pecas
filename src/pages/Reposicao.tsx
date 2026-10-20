@@ -42,9 +42,9 @@ export default function Reposicao() {
       <Cabecalho grande titulo="Reposição" subtitulo={totalPendente ? `${totalPendente} peças para comprar` : 'Nada pendente'}
         acao={aba === 'pendente' && grupos.length > 0 ? <button className="btn-secondary !px-3 !py-2.5" onClick={compartilhar} aria-label="Compartilhar lista"><Share2 size={18} /></button> : undefined} />
       <div className="px-4 pb-6">
-        <div className="mb-3 grid grid-cols-2 rounded-xl bg-stone-200/70 p-1 dark:bg-stone-800">
+        <div className="mb-3 grid grid-cols-2 rounded-xl bg-stone-200/70 p-1">
           {(['pendente', 'comprado'] as const).map((a) => (
-            <button key={a} onClick={() => setAba(a)} className={`rounded-lg py-2 text-[14px] font-semibold ${aba === a ? 'bg-white shadow-sm dark:bg-stone-900' : 'text-stone-500'}`}>{a === 'pendente' ? 'Pendentes' : 'Compradas'}</button>
+            <button key={a} onClick={() => setAba(a)} className={`rounded-lg py-2 text-[14px] font-semibold ${aba === a ? 'bg-white shadow-sm' : 'text-stone-500'}`}>{a === 'pendente' ? 'Pendentes' : 'Compradas'}</button>
           ))}
         </div>
         {grupos.length === 0 && <Vazio icone={<ShoppingBag size={26} />} titulo={aba === 'pendente' ? 'Nada para repor' : 'Nenhuma compra registrada'} texto={aba === 'pendente' ? 'Quebras e perdas registradas no retorno dos eventos aparecem aqui.' : undefined} />}
@@ -70,10 +70,10 @@ export default function Reposicao() {
                     return (
                       <li key={r.id} className="flex items-center justify-between gap-2 text-[13px]">
                         <div className="flex min-w-0 items-center gap-2">
-                          <Chip cor={r.motivo === 'quebra' ? 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-100' : 'bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-100'}>{r.qtd} {r.motivo}{r.qtd > 1 ? 's' : ''}</Chip>
+                          <Chip cor={r.motivo === 'quebra' ? 'bg-red-100 text-red-800' : 'bg-orange-100 text-orange-800'}>{r.qtd} {r.motivo}{r.qtd > 1 ? 's' : ''}</Chip>
                           {ev && <Link to={`/evento/${ev.id}/retorno`} className="truncate text-stone-500 underline-offset-2 hover:underline">{dataCurta(ev.data)} · {titulo(ev.contratante)}</Link>}
                         </div>
-                        <button className={`shrink-0 rounded-lg px-2.5 py-1.5 text-[12px] font-semibold ${aba === 'pendente' ? 'bg-brand-50 text-brand-800 dark:bg-stone-800 dark:text-brand-200' : 'bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-300'}`}
+                        <button className={`shrink-0 rounded-lg px-2.5 py-1.5 text-[12px] font-semibold ${aba === 'pendente' ? 'bg-brand-50 text-brand-800' : 'bg-stone-100 text-stone-600'}`}
                           onClick={() => marcarReposicao(r.id!, aba === 'pendente' ? 'comprado' : 'pendente')}>
                           {aba === 'pendente' ? <span className="inline-flex items-center gap-1"><Check size={14} /> Comprado</span> : <span className="inline-flex items-center gap-1"><RotateCcw size={14} /> Desfazer</span>}
                         </button>

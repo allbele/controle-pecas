@@ -31,7 +31,7 @@ export default function Retorno({ ctx }: { ctx: Ctx }) {
   if (antes) {
     return (
       <div className="card mt-2 flex flex-col items-center px-6 py-12 text-center">
-        <div className="mb-3 rounded-2xl bg-stone-100 p-4 text-stone-500 dark:bg-stone-800"><Lock size={26} /></div>
+        <div className="mb-3 rounded-2xl bg-stone-100 p-4 text-stone-500"><Lock size={26} /></div>
         <p className="text-[16px] font-semibold">A saída ainda não foi liberada</p>
         <p className="mt-1 max-w-xs text-[14px] text-stone-500">Confira a saída primeiro. O retorno fica disponível quando as peças saírem para o evento.</p>
       </div>
@@ -43,10 +43,10 @@ export default function Retorno({ ctx }: { ctx: Ctx }) {
       <div className="card mb-4 px-4 py-3.5">
         <div className="grid grid-cols-3 gap-2 text-center">
           <div><p className="text-[22px] font-bold tabular-nums">{linhas.filter((l) => l.qtdVolta !== null || l.todos).length}<span className="text-[13px] font-medium text-stone-400">/{linhas.length}</span></p><p className="text-[11px] uppercase tracking-wide text-stone-500">conferidas</p></div>
-          <div><p className={`text-[22px] font-bold tabular-nums ${quebras ? 'text-red-600 dark:text-red-300' : ''}`}>{quebras}</p><p className="text-[11px] uppercase tracking-wide text-stone-500">quebras</p></div>
-          <div><p className={`text-[22px] font-bold tabular-nums ${perdas ? 'text-orange-600 dark:text-orange-300' : ''}`}>{perdas}</p><p className="text-[11px] uppercase tracking-wide text-stone-500">perdas</p></div>
+          <div><p className={`text-[22px] font-bold tabular-nums ${quebras ? 'text-red-600' : ''}`}>{quebras}</p><p className="text-[11px] uppercase tracking-wide text-stone-500">quebras</p></div>
+          <div><p className={`text-[22px] font-bold tabular-nums ${perdas ? 'text-orange-600' : ''}`}>{perdas}</p><p className="text-[11px] uppercase tracking-wide text-stone-500">perdas</p></div>
         </div>
-        {inconsistentes > 0 && <p className="mt-2.5 flex items-center gap-1.5 text-[13px] text-amber-800 dark:text-amber-200"><AlertTriangle size={14} /> {plural(inconsistentes, 'peça com conta que não fecha', 'peças com conta que não fecha')}</p>}
+        {inconsistentes > 0 && <p className="mt-2.5 flex items-center gap-1.5 text-[13px] text-amber-800"><AlertTriangle size={14} /> {plural(inconsistentes, 'peça com conta que não fecha', 'peças com conta que não fecha')}</p>}
       </div>
 
       {grupos.map(([secao, ls]) => (
@@ -54,7 +54,7 @@ export default function Retorno({ ctx }: { ctx: Ctx }) {
           <SecaoTitulo nome={secao} extra={aberto ? (
             <button className="btn-ghost !px-2 !py-1 !text-[12px]" onClick={() => voltouTudo(evento.id, ls.map((l) => l.itemId))}><CheckCheck size={14} /> Voltou tudo</button>
           ) : undefined} />
-          <ul className="card divide-y divide-stone-100 dark:divide-stone-800">
+          <ul className="card divide-y divide-stone-100">
             {ls.map((l) => <LinhaRetorno key={l.id} linha={l} nome={itens.get(l.itemId)?.nome ?? l.itemId} fotos={fotos.filter((f) => f.itemId === l.itemId)} editavel={aberto} eventoId={evento.id} />)}
           </ul>
         </section>
@@ -62,14 +62,14 @@ export default function Retorno({ ctx }: { ctx: Ctx }) {
 
       {aberto && (
         <RodapeFixo>
-          {confirma && <p className="mb-2 text-center text-[13px] font-semibold text-amber-800 dark:text-amber-200">{plural(semRegistro, 'peça sem volta registrada', 'peças sem volta registradas')}. Vou considerar que voltaram inteiras. Fechar?</p>}
+          {confirma && <p className="mb-2 text-center text-[13px] font-semibold text-amber-800">{plural(semRegistro, 'peça sem volta registrada', 'peças sem volta registradas')}. Vou considerar que voltaram inteiras. Fechar?</p>}
           <button className={`${confirma ? 'btn-confirm' : 'btn-primary'} w-full`} onClick={fechar} disabled={linhas.length === 0}>{confirma ? 'Sim, fechar evento' : 'Fechar evento'}</button>
         </RodapeFixo>
       )}
       {fechado && (
         <RodapeFixo>
           <div className="flex items-center gap-2">
-            <p className="flex-1 text-[13px] text-stone-600 dark:text-stone-300">Evento fechado. {quebras + perdas ? `${plural(quebras + perdas, 'peça foi', 'peças foram')} para a reposição.` : 'Voltou tudo.'}</p>
+            <p className="flex-1 text-[13px] text-stone-600">Evento fechado. {quebras + perdas ? `${plural(quebras + perdas, 'peça foi', 'peças foram')} para a reposição.` : 'Voltou tudo.'}</p>
             <button className="btn-ghost !px-3 !text-[13px]" onClick={() => reabrirEvento(evento.id)}><Undo2 size={16} /> Reabrir</button>
           </div>
         </RodapeFixo>
@@ -88,27 +88,27 @@ function LinhaRetorno({ linha: l, nome, fotos, editavel, eventoId }: { linha: Li
   const registrado = l.qtdVolta !== null || l.todos
 
   return (
-    <li className={`px-3.5 py-3 ${temProblema ? 'bg-red-50/50 dark:bg-red-950/20' : ''}`}>
+    <li className={`px-3.5 py-3 ${temProblema ? 'bg-red-50/50' : ''}`}>
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <p className={`text-[15px] ${registrado ? '' : 'font-medium'}`}>{nome}</p>
-          <p className="text-[12px] text-stone-400">saiu: {l.todos ? 'todos' : saida}{dif !== 0 && <span className="ml-1 font-semibold text-amber-700 dark:text-amber-300">· {Math.abs(dif)} sem explicação</span>}</p>
+          <p className="text-[12px] text-stone-400">saiu: {l.todos ? 'todos' : saida}{dif !== 0 && <span className="ml-1 font-semibold text-amber-700">· {Math.abs(dif)} sem explicação</span>}</p>
         </div>
         {editavel && !l.todos && (
           <div className="flex gap-1">
-            <button className="rounded-lg p-2 text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800" onClick={() => input.current?.click()} aria-label="Foto da quebra"><Camera size={18} /></button>
-            <button className={`rounded-lg p-2 hover:bg-stone-100 dark:hover:bg-stone-800 ${obsAberta ? 'text-brand-700' : 'text-stone-500'}`} onClick={() => setObsAberta((v) => !v)} aria-label="Observação"><MessageSquare size={18} /></button>
+            <button className="rounded-lg p-2 text-stone-500 hover:bg-stone-100" onClick={() => input.current?.click()} aria-label="Foto da quebra"><Camera size={18} /></button>
+            <button className={`rounded-lg p-2 hover:bg-stone-100 ${obsAberta ? 'text-brand-700' : 'text-stone-500'}`} onClick={() => setObsAberta((v) => !v)} aria-label="Observação"><MessageSquare size={18} /></button>
             <input ref={input} type="file" accept="image/*" capture="environment" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (f) await adicionarFoto(eventoId, l.itemId, f); e.target.value = '' }} />
           </div>
         )}
       </div>
       {!l.todos && (
         <div className="mt-2 grid grid-cols-3 gap-2">
-          <Contador rotulo="Voltou" valor={volta} cor="text-brand-700 dark:text-brand-300" editavel={editavel}
+          <Contador rotulo="Voltou" valor={volta} cor="text-brand-700" editavel={editavel}
             onChange={(v) => atualizarLinha(l.id!, { qtdVolta: v })} />
-          <Contador rotulo="Quebrou" valor={l.quebras} cor={l.quebras ? 'text-red-600 dark:text-red-300' : ''} editavel={editavel}
+          <Contador rotulo="Quebrou" valor={l.quebras} cor={l.quebras ? 'text-red-600' : ''} editavel={editavel}
             onChange={(v) => atualizarLinha(l.id!, { quebras: v, qtdVolta: Math.max(0, (saida ?? 0) - v - l.perdas) })} />
-          <Contador rotulo="Perdeu" valor={l.perdas} cor={l.perdas ? 'text-orange-600 dark:text-orange-300' : ''} editavel={editavel}
+          <Contador rotulo="Perdeu" valor={l.perdas} cor={l.perdas ? 'text-orange-600' : ''} editavel={editavel}
             onChange={(v) => atualizarLinha(l.id!, { perdas: v, qtdVolta: Math.max(0, (saida ?? 0) - l.quebras - v) })} />
         </div>
       )}
@@ -127,7 +127,7 @@ function LinhaRetorno({ linha: l, nome, fotos, editavel, eventoId }: { linha: Li
 
 function Contador({ rotulo, valor, cor, editavel, onChange }: { rotulo: string; valor: number | null; cor: string; editavel: boolean; onChange: (v: number) => void }) {
   return (
-    <div className="flex flex-col items-center rounded-xl bg-stone-50 px-1 py-1.5 dark:bg-stone-800/60">
+    <div className="flex flex-col items-center rounded-xl bg-stone-50 px-1 py-1.5">
       <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500">{rotulo}</span>
       {editavel ? <Stepper valor={valor} onChange={onChange} rotulo={rotulo} /> : <span className={`py-1 text-[18px] font-bold tabular-nums ${cor}`}>{valor ?? '—'}</span>}
     </div>
@@ -141,7 +141,7 @@ export function Miniatura({ foto, editavel, tamanho = 64 }: { foto: Foto; editav
   return (
     <>
       <div className="relative shrink-0">
-        <button onClick={() => setAmpliada(true)} className="block overflow-hidden rounded-lg ring-1 ring-stone-200 dark:ring-stone-700" style={{ width: tamanho, height: tamanho }}>
+        <button onClick={() => setAmpliada(true)} className="block overflow-hidden rounded-lg ring-1 ring-stone-200" style={{ width: tamanho, height: tamanho }}>
           {url && <img src={url} alt="Foto da peça" className="h-full w-full object-cover" />}
         </button>
         {editavel && <button className="absolute -right-1.5 -top-1.5 rounded-full bg-stone-800 p-0.5 text-white" onClick={() => removerFoto(foto.id!)} aria-label="Remover foto"><X size={12} /></button>}

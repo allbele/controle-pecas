@@ -48,10 +48,10 @@ export default function Catalogo() {
                 <span className="text-[13px] text-stone-500">{lista.length}</span>
               </button>
               {aberta && (
-                <ul className="divide-y divide-stone-100 border-t border-stone-100 dark:divide-stone-800 dark:border-stone-800">
+                <ul className="divide-y divide-stone-100 border-t border-stone-100">
                   {lista.map((i) => (
                     <li key={i.id}>
-                      <button className="flex w-full items-center gap-3 px-4 py-3 text-left active:bg-stone-50 dark:active:bg-stone-800" onClick={() => setEditando(i)}>
+                      <button className="flex w-full items-center gap-3 px-4 py-3 text-left active:bg-stone-50" onClick={() => setEditando(i)}>
                         <span className={`flex-1 text-[15px] ${i.ativo ? '' : 'text-stone-400 line-through'}`}>{i.nome}</span>
                         {i.unidade !== 'un' && <Chip>{UNIDADES[i.unidade].longa}</Chip>}
                         {!i.ativo && <Chip cor="bg-stone-100 text-stone-500">inativa</Chip>}
@@ -119,20 +119,20 @@ function EditorItem({ item, secoes, onFechar }: { item: Item | 'novo' | null; se
           <span className="label">Unidade de contagem</span>
           <div className="grid grid-cols-4 gap-2">
             {(Object.keys(UNIDADES) as Unidade[]).map((u) => (
-              <button key={u} type="button" onClick={() => setUnidade(u)} className={`rounded-xl px-2 py-2.5 text-[14px] font-semibold ring-1 ${unidade === u ? 'bg-brand-700 text-white ring-brand-700 dark:bg-brand-500 dark:text-stone-950 dark:ring-brand-500' : 'bg-white text-stone-700 ring-stone-200 dark:bg-stone-900 dark:text-stone-200 dark:ring-stone-700'}`}>{UNIDADES[u].longa}</button>
+              <button key={u} type="button" onClick={() => setUnidade(u)} className={`rounded-xl px-2 py-2.5 text-[14px] font-semibold ring-1 ${unidade === u ? 'bg-brand-700 text-white ring-brand-700' : 'bg-white text-stone-700 ring-stone-200'}`}>{UNIDADES[u].longa}</button>
             ))}
           </div>
         </div>
         {!novo && (
           <>
-            <div className="flex items-center justify-between rounded-xl bg-white px-3 py-2 ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-700">
+            <div className="flex items-center justify-between rounded-xl bg-white px-3 py-2 ring-1 ring-stone-200">
               <span className="text-[14px]">Ordem na seção</span>
               <div className="flex gap-1">
                 <button className="btn-ghost !p-2" onClick={() => moverItem((item as Item).id, -1)} aria-label="Subir"><ArrowUp size={18} /></button>
                 <button className="btn-ghost !p-2" onClick={() => moverItem((item as Item).id, 1)} aria-label="Descer"><ArrowDown size={18} /></button>
               </div>
             </div>
-            <label className="flex items-center justify-between rounded-xl bg-white px-3 py-3 ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-700">
+            <label className="flex items-center justify-between rounded-xl bg-white px-3 py-3 ring-1 ring-stone-200">
               <span className="text-[14px]">Peça ativa</span>
               <input type="checkbox" className="h-5 w-5 accent-brand-700" checked={(item as Item).ativo} onChange={(e) => atualizarItem((item as Item).id, { ativo: e.target.checked })} />
             </label>

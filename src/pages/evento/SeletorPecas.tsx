@@ -32,13 +32,13 @@ export default function SeletorPecas({ aberto, onFechar, eventoId, linhas, extra
       </div>
       {!termo && (
         <div className="no-scrollbar -mx-5 mb-2 flex gap-1.5 overflow-x-auto px-5 pb-1">
-          <button onClick={() => setSecaoAtiva(null)} className={`chip shrink-0 !px-3 !py-2 !text-[12px] ${secaoAtiva === null ? 'bg-brand-700 text-white dark:bg-brand-500 dark:text-stone-950' : 'bg-white ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-700'}`}>Todas</button>
+          <button onClick={() => setSecaoAtiva(null)} className={`chip shrink-0 !px-3 !py-2 !text-[12px] ${secaoAtiva === null ? 'bg-brand-700 text-white' : 'bg-white ring-1 ring-stone-200'}`}>Todas</button>
           {secoes.map((s) => (
-            <button key={s} onClick={() => setSecaoAtiva(s)} className={`chip shrink-0 !px-3 !py-2 !text-[12px] ${secaoAtiva === s ? 'bg-brand-700 text-white dark:bg-brand-500 dark:text-stone-950' : 'bg-white ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-700'}`}>{s}</button>
+            <button key={s} onClick={() => setSecaoAtiva(s)} className={`chip shrink-0 !px-3 !py-2 !text-[12px] ${secaoAtiva === s ? 'bg-brand-700 text-white' : 'bg-white ring-1 ring-stone-200'}`}>{s}</button>
           ))}
         </div>
       )}
-      <ul className="divide-y divide-stone-100 rounded-2xl bg-white ring-1 ring-stone-200 dark:divide-stone-800 dark:bg-stone-900 dark:ring-stone-800">
+      <ul className="divide-y divide-stone-100 rounded-2xl bg-white ring-1 ring-stone-200">
         {visiveis.length === 0 && <li className="px-4 py-6 text-center text-[14px] text-stone-500">Nenhuma peça com esse nome. Crie no Catálogo.</li>}
         {visiveis.map((i) => {
           const l = noPedido.get(i.id)
@@ -48,8 +48,8 @@ export default function SeletorPecas({ aberto, onFechar, eventoId, linhas, extra
                 <p className="truncate text-[15px]">{i.nome}</p>
                 <p className="text-[11px] uppercase tracking-wide text-stone-400">{i.secao}{i.unidade !== 'un' ? ` · ${UNIDADES[i.unidade].longa}` : ''}</p>
               </div>
-              {l && <span className="text-[13px] font-semibold text-brand-700 dark:text-brand-300">{l.todos ? 'todos' : l.qtdPedida}</span>}
-              <button className={`rounded-xl p-2.5 ${l ? 'bg-brand-50 text-brand-700 dark:bg-stone-800 dark:text-brand-300' : 'bg-brand-700 text-white dark:bg-brand-500 dark:text-stone-950'}`}
+              {l && <span className="text-[13px] font-semibold text-brand-700">{l.todos ? 'todos' : l.qtdPedida}</span>}
+              <button className={`rounded-xl p-2.5 ${l ? 'bg-brand-50 text-brand-700' : 'bg-brand-700 text-white'}`}
                 onClick={() => adicionarAoPedido(eventoId, i.id, 1, false, extra)} aria-label={`Adicionar ${i.nome}`}>
                 {l ? <Plus size={18} /> : <Plus size={18} />}
               </button>

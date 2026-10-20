@@ -45,8 +45,8 @@ export default function Ajustes() {
           <div className="space-y-2">
             {PAPEIS.map(({ id, titulo, texto, Icone }) => (
               <button key={id} onClick={() => setPapel(id)} className={`card flex w-full items-start gap-3 px-4 py-3.5 text-left ring-2 ${cfg.papel === id ? 'ring-brand-600' : 'ring-transparent'}`} aria-pressed={cfg.papel === id}>
-                <span className={`mt-0.5 rounded-xl p-2 ${cfg.papel === id ? 'bg-brand-700 text-white dark:bg-brand-500 dark:text-stone-950' : 'bg-stone-100 text-stone-500 dark:bg-stone-800'}`}><Icone size={20} /></span>
-                <span><span className="block text-[15px] font-semibold">{titulo}</span><span className="block text-[13px] text-stone-500 dark:text-stone-400">{texto}</span></span>
+                <span className={`mt-0.5 rounded-xl p-2 ${cfg.papel === id ? 'bg-brand-700 text-white' : 'bg-stone-100 text-stone-500'}`}><Icone size={20} /></span>
+                <span><span className="block text-[15px] font-semibold">{titulo}</span><span className="block text-[13px] text-stone-500">{texto}</span></span>
               </button>
             ))}
           </div>
@@ -58,7 +58,7 @@ export default function Ajustes() {
 
         <section className="card px-4 py-4">
           <div className="flex items-center gap-2 text-[15px] font-semibold"><Smartphone size={18} /> Instalar no celular</div>
-          <p className="mt-1.5 text-[13px] text-stone-600 dark:text-stone-400">
+          <p className="mt-1.5 text-[13px] text-stone-600">
             <b>Android:</b> menu ⋮ do navegador → <i>Adicionar à tela inicial</i>.<br />
             <b>iPhone:</b> botão compartilhar → <i>Adicionar à Tela de Início</i>.
           </p>
@@ -66,7 +66,7 @@ export default function Ajustes() {
 
         <section>
           <span className="label">Dados</span>
-          <div className="card divide-y divide-stone-100 dark:divide-stone-800">
+          <div className="card divide-y divide-stone-100">
             <button className="flex w-full items-center gap-3 px-4 py-3.5 text-left" onClick={exportar}><Download size={18} className="text-stone-500" /><span className="flex-1 text-[15px]">Exportar backup</span></button>
             <button className="flex w-full items-center gap-3 px-4 py-3.5 text-left" onClick={() => arquivo.current?.click()}><Upload size={18} className="text-stone-500" /><span className="flex-1 text-[15px]">Restaurar backup</span></button>
             <input ref={arquivo} type="file" accept="application/json" className="hidden" onChange={(e) => importar(e.target.files?.[0])} />

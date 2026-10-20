@@ -70,11 +70,11 @@ function ListaPorData({ eventos, porEvento, passado }: { eventos: Evento[]; porE
       {[...grupos.entries()].map(([data, evs]) => (
         <section key={data}>
           <div className="mb-2 mt-4 flex items-center justify-between px-1">
-            <h2 className={`text-[14px] font-bold ${data === hoje ? 'text-brand-700 dark:text-brand-300' : passado ? 'text-stone-400' : ''}`}>
+            <h2 className={`text-[14px] font-bold ${data === hoje ? 'text-brand-700' : passado ? 'text-stone-400' : ''}`}>
               {data === hoje ? 'Hoje · ' : ''}{dataLonga(data)}
             </h2>
             {evs.length > 1 && (
-              <Chip cor="bg-amber-100 text-amber-900 dark:bg-amber-900/50 dark:text-amber-100"><AlertTriangle size={12} /> {evs.length} eventos no dia</Chip>
+              <Chip cor="bg-amber-100 text-amber-900"><AlertTriangle size={12} /> {evs.length} eventos no dia</Chip>
             )}
           </div>
           <div className="space-y-2.5">
@@ -100,15 +100,15 @@ function CartaoEvento({ evento, linhas }: { evento: Evento; linhas: Linha[] }) {
   else resumo = quebras ? `${plural(quebras, 'peça a repor', 'peças a repor')}` : 'Voltou tudo'
 
   return (
-    <Link to={`/evento/${evento.id}`} className="card block px-4 py-3.5 active:bg-stone-50 dark:active:bg-stone-800">
+    <Link to={`/evento/${evento.id}`} className="card block px-4 py-3.5 active:bg-stone-50">
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[12px] font-bold uppercase tracking-wide text-brand-700 dark:text-brand-300">{evento.tipo}</span>
-            {grande && <Chip cor="bg-violet-100 text-violet-800 dark:bg-violet-900/50 dark:text-violet-100">grande porte</Chip>}
+            <span className="text-[12px] font-bold uppercase tracking-wide text-brand-700">{evento.tipo}</span>
+            {grande && <Chip cor="bg-violet-100 text-violet-800">grande porte</Chip>}
           </div>
           <p className="mt-0.5 truncate text-[16px] font-semibold">{titulo(evento.contratante) || 'Sem nome'}</p>
-          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[13px] text-stone-500 dark:text-stone-400">
+          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[13px] text-stone-500">
             {evento.local && <span className="inline-flex items-center gap-1"><MapPin size={13} />{titulo(evento.local)}</span>}
             {evento.convidados !== null && <span className="inline-flex items-center gap-1"><Users size={13} />{evento.convidados}</span>}
             {evento.coordenadores.length > 0 && <span>{evento.coordenadores.join(', ')}</span>}
@@ -118,7 +118,7 @@ function CartaoEvento({ evento, linhas }: { evento: Evento; linhas: Linha[] }) {
       </div>
       <div className="mt-2.5 flex items-center justify-between">
         <Chip cor={st.cor}>{st.rotulo}</Chip>
-        <span className={`text-[12px] ${evento.status === 'fechado' && quebras ? 'font-semibold text-red-600 dark:text-red-300' : 'text-stone-500'}`}>{resumo}</span>
+        <span className={`text-[12px] ${evento.status === 'fechado' && quebras ? 'font-semibold text-red-600' : 'text-stone-500'}`}>{resumo}</span>
       </div>
     </Link>
   )

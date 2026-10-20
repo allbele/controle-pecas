@@ -56,17 +56,17 @@ export default function Evento() {
         subtitulo={<span>{dataLonga(evento.data)}</span>}
         acao={<Link to={`/evento/${evento.id}/editar`} className="btn-ghost !p-2.5" aria-label="Editar evento"><Pencil size={20} /></Link>} />
       <div className="px-4">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-stone-600 dark:text-stone-400">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-stone-600">
           <Chip cor={st.cor}>{st.rotulo}</Chip>
           {evento.local && <span className="inline-flex items-center gap-1"><MapPin size={13} />{titulo(evento.local)}</span>}
           {evento.convidados !== null && <span className="inline-flex items-center gap-1"><Users size={13} />{evento.convidados} convidados</span>}
           {evento.coordenadores.length > 0 && <span>Coord.: {evento.coordenadores.join(', ')}</span>}
         </div>
-        <div className="sticky top-[56px] z-20 -mx-4 mt-3 bg-paper/95 px-4 py-2 backdrop-blur dark:bg-stone-950/95">
-          <div className="grid rounded-xl bg-stone-200/70 p-1 dark:bg-stone-800" style={{ gridTemplateColumns: `repeat(${abas.length}, 1fr)` }} role="tablist">
+        <div className="sticky top-[56px] z-20 -mx-4 mt-3 bg-paper/95 px-4 py-2 backdrop-blur">
+          <div className="grid rounded-xl bg-stone-200/70 p-1" style={{ gridTemplateColumns: `repeat(${abas.length}, 1fr)` }} role="tablist">
             {abas.map((a) => (
               <button key={a.id} role="tab" aria-selected={abaAtual === a.id} onClick={() => nav(`/evento/${evento.id}/${a.id}`, { replace: true })}
-                className={`rounded-lg py-2 text-[14px] font-semibold transition ${abaAtual === a.id ? 'bg-white shadow-sm dark:bg-stone-900' : 'text-stone-500'}`}>{a.rotulo}</button>
+                className={`rounded-lg py-2 text-[14px] font-semibold transition ${abaAtual === a.id ? 'bg-white shadow-sm' : 'text-stone-500'}`}>{a.rotulo}</button>
             ))}
           </div>
         </div>
@@ -95,7 +95,7 @@ export function agruparPorSecao(linhas: Linha[], itens: Map<string, Item>) {
 
 export function RodapeFixo({ children }: { children: React.ReactNode }) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-stone-200/80 bg-white/95 backdrop-blur dark:border-stone-800 dark:bg-stone-950/95" style={{ paddingBottom: 'calc(10px + var(--sab))' }}>
+    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-stone-200/80 bg-white/95 backdrop-blur" style={{ paddingBottom: 'calc(10px + var(--sab))' }}>
       <div className="mx-auto max-w-lg px-4 pt-2.5">{children}</div>
     </div>
   )

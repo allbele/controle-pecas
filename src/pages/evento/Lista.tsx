@@ -35,7 +35,7 @@ export default function Lista({ ctx }: { ctx: Ctx }) {
       {grupos.map(([secao, ls]) => (
         <section key={secao}>
           <SecaoTitulo nome={secao} extra={<span className="text-[12px] text-stone-400">{ls.length}</span>} />
-          <ul className="card divide-y divide-stone-100 dark:divide-stone-800">
+          <ul className="card divide-y divide-stone-100">
             {ls.map((l) => {
               const it = itens.get(l.itemId)
               return (
@@ -47,11 +47,11 @@ export default function Lista({ ctx }: { ctx: Ctx }) {
                   {editavel ? (
                     <>
                       {l.todos ? (
-                        <button className="chip bg-brand-700 text-white dark:bg-brand-500 dark:text-stone-950 !px-3 !py-2" onClick={() => atualizarLinha(l.id!, { todos: false, qtdPedida: 1 })}>todos</button>
+                        <button className="chip bg-brand-700 text-white !px-3 !py-2" onClick={() => atualizarLinha(l.id!, { todos: false, qtdPedida: 1 })}>todos</button>
                       ) : (
                         <>
                           <Stepper valor={l.qtdPedida} min={1} onChange={(v) => atualizarLinha(l.id!, { qtdPedida: v })} rotulo={`Quantidade de ${it?.nome}`} />
-                          {it?.secao === 'PRATOS' && <button className="chip bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-300 !px-2 !py-2" onClick={() => atualizarLinha(l.id!, { todos: true, qtdPedida: null })}>todos</button>}
+                          {it?.secao === 'PRATOS' && <button className="chip bg-stone-100 text-stone-600 !px-2 !py-2" onClick={() => atualizarLinha(l.id!, { todos: true, qtdPedida: null })}>todos</button>}
                         </>
                       )}
                       <button className="rounded-lg p-1.5 text-stone-400 hover:text-red-600" onClick={() => removerLinha(l.id!)} aria-label="Remover"><X size={18} /></button>
@@ -69,7 +69,7 @@ export default function Lista({ ctx }: { ctx: Ctx }) {
       {extras.length > 0 && (
         <section>
           <SecaoTitulo nome="Incluídas na saída (fora da lista)" />
-          <ul className="card divide-y divide-stone-100 dark:divide-stone-800">
+          <ul className="card divide-y divide-stone-100">
             {extras.map((l) => (
               <li key={l.id} className="flex items-center justify-between px-3.5 py-2.5 text-[15px]"><span>{itens.get(l.itemId)?.nome}</span><Chip>{l.qtdSaida}</Chip></li>
             ))}
@@ -104,7 +104,7 @@ function CopiarDeEvento({ aberto, onFechar, paraEventoId }: { aberto: boolean; o
   const candidatos = (eventos ?? []).filter((e) => e.id !== paraEventoId).reverse()
   return (
     <Sheet aberto={aberto} onFechar={onFechar} titulo="Copiar lista de">
-      <ul className="divide-y divide-stone-100 rounded-2xl bg-white ring-1 ring-stone-200 dark:divide-stone-800 dark:bg-stone-900 dark:ring-stone-800">
+      <ul className="divide-y divide-stone-100 rounded-2xl bg-white ring-1 ring-stone-200">
         {candidatos.map((e) => (
           <li key={e.id}>
             <button className="flex w-full items-center justify-between px-4 py-3 text-left" onClick={async () => { const n = await copiarLista(e.id, paraEventoId); avisar(n ? `${plural(n, 'peça copiada', 'peças copiadas')}` : 'Nada novo para copiar'); onFechar() }}>

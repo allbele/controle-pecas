@@ -29,7 +29,7 @@ export default function Saida({ ctx }: { ctx: Ctx }) {
   return (
     <div className="pb-32">
       {evento.status === 'planejado' && (
-        <div className="mb-3 flex items-start gap-2 rounded-xl bg-sky-50 px-3.5 py-3 text-[13px] text-sky-900 dark:bg-sky-950/50 dark:text-sky-100">
+        <div className="mb-3 flex items-start gap-2 rounded-xl bg-sky-50 px-3.5 py-3 text-[13px] text-sky-900">
           <AlertTriangle size={16} className="mt-0.5 shrink-0" /> O coordenador ainda não marcou a lista como pronta. Dá para conferir mesmo assim.
         </div>
       )}
@@ -40,11 +40,11 @@ export default function Saida({ ctx }: { ctx: Ctx }) {
               <p className="text-[13px] font-semibold uppercase tracking-wide text-stone-500">Conferência de saída</p>
               <p className="text-[22px] font-bold leading-tight tabular-nums">{ok} <span className="text-[15px] font-medium text-stone-500">de {total} peças</span></p>
             </div>
-            {liberada ? <span className="chip bg-brand-100 text-brand-800 dark:bg-brand-900/60 dark:text-brand-100"><Truck size={13} /> Saída liberada</span> : pendentes.length === 0 ? <span className="chip bg-brand-100 text-brand-800"><Check size={13} /> Tudo conferido</span> : null}
+            {liberada ? <span className="chip bg-brand-100 text-brand-800"><Truck size={13} /> Saída liberada</span> : pendentes.length === 0 ? <span className="chip bg-brand-100 text-brand-800"><Check size={13} /> Tudo conferido</span> : null}
           </div>
           <Progress valor={ok} total={total} cor={pendentes.length === 0 ? 'bg-brand-600' : 'bg-amber-500'} />
           {!liberada && pendentes.length > 0 && (
-            <p className="mt-2.5 text-[13px] text-amber-800 dark:text-amber-200">
+            <p className="mt-2.5 text-[13px] text-amber-800">
               <b>Falta conferir:</b> {pendentes.slice(0, 4).map((l) => itens.get(l.itemId)?.nome).join(', ')}{pendentes.length > 4 ? ` e mais ${pendentes.length - 4}` : ''}
             </p>
           )}
@@ -55,27 +55,27 @@ export default function Saida({ ctx }: { ctx: Ctx }) {
       {grupos.map(([secao, ls]) => (
         <section key={secao}>
           <SecaoTitulo nome={secao} extra={<span className="text-[12px] text-stone-400">{ls.filter((l) => l.saidaOk).length}/{ls.length}</span>} />
-          <ul className="card divide-y divide-stone-100 dark:divide-stone-800">
+          <ul className="card divide-y divide-stone-100">
             {ls.map((l) => {
               const it = itens.get(l.itemId)
               const saida = l.qtdSaida ?? l.qtdPedida
               const difere = !l.todos && l.qtdSaida !== null && l.qtdSaida !== l.qtdPedida
               return (
-                <li key={l.id} className={`flex items-center gap-2 px-3 py-2.5 ${l.saidaOk ? '' : conferindo ? 'bg-amber-50/60 dark:bg-amber-950/20' : ''}`}>
+                <li key={l.id} className={`flex items-center gap-2 px-3 py-2.5 ${l.saidaOk ? '' : conferindo ? 'bg-amber-50/60' : ''}`}>
                   <button disabled={!conferindo} aria-pressed={l.saidaOk} aria-label={`Conferir ${it?.nome}`}
                     onClick={() => atualizarLinha(l.id!, { saidaOk: !l.saidaOk, qtdSaida: l.saidaOk ? l.qtdSaida : (l.qtdSaida ?? l.qtdPedida) })}
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 transition ${l.saidaOk ? 'border-brand-600 bg-brand-600 text-white' : 'border-stone-300 text-transparent dark:border-stone-600'}`}>
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 transition ${l.saidaOk ? 'border-brand-600 bg-brand-600 text-white' : 'border-stone-300 text-transparent'}`}>
                     <Check size={20} strokeWidth={3} />
                   </button>
                   <div className="min-w-0 flex-1">
                     <p className={`truncate text-[15px] ${l.saidaOk ? 'text-stone-500' : 'font-medium'}`}>{it?.nome ?? l.itemId}</p>
                     <p className="text-[12px] text-stone-400">
                       {l.extra ? 'fora da lista' : `pedido: ${qtdTexto(l.qtdPedida, l.todos, it?.unidade ?? 'un')}`}
-                      {difere && <span className="ml-1 font-semibold text-amber-700 dark:text-amber-300">· saiu {saida}</span>}
+                      {difere && <span className="ml-1 font-semibold text-amber-700">· saiu {saida}</span>}
                     </p>
                   </div>
                   {l.todos ? (
-                    <span className="chip bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-300">todos</span>
+                    <span className="chip bg-stone-100 text-stone-600">todos</span>
                   ) : conferindo ? (
                     <Stepper valor={saida} onChange={(v) => atualizarLinha(l.id!, { qtdSaida: v, saidaOk: true })} destaque={difere} rotulo={`Saída de ${it?.nome}`} />
                   ) : (
@@ -91,7 +91,7 @@ export default function Saida({ ctx }: { ctx: Ctx }) {
 
       {conferindo && (
         <RodapeFixo>
-          {confirma && <p className="mb-2 text-center text-[13px] font-semibold text-amber-800 dark:text-amber-200">{plural(pendentes.length, 'peça não conferida', 'peças não conferidas')}. Liberar mesmo assim?</p>}
+          {confirma && <p className="mb-2 text-center text-[13px] font-semibold text-amber-800">{plural(pendentes.length, 'peça não conferida', 'peças não conferidas')}. Liberar mesmo assim?</p>}
           <div className="flex gap-2">
             <button className="btn-secondary" onClick={() => setSeletor(true)} aria-label="Incluir peça fora da lista"><Plus size={18} /> Incluir</button>
             <button className={`${pendentes.length === 0 ? 'btn-primary' : confirma ? 'btn-confirm' : 'btn-secondary'} flex-1`} disabled={total === 0} onClick={liberar}>
@@ -103,7 +103,7 @@ export default function Saida({ ctx }: { ctx: Ctx }) {
       {evento.status === 'saiu' && (
         <RodapeFixo>
           <div className="flex items-center gap-2">
-            <p className="flex flex-1 items-center gap-2 text-[13px] text-stone-600 dark:text-stone-300"><PackageCheck size={18} className="text-brand-600" /> Peças em evento. Registre a volta na aba Retorno.</p>
+            <p className="flex flex-1 items-center gap-2 text-[13px] text-stone-600"><PackageCheck size={18} className="text-brand-600" /> Peças em evento. Registre a volta na aba Retorno.</p>
             <button className="btn-ghost !px-3 !text-[13px]" onClick={() => setStatus(evento.id, 'lista_pronta')}><Undo2 size={16} /> Reabrir</button>
           </div>
         </RodapeFixo>

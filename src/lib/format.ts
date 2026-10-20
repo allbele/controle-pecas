@@ -45,10 +45,10 @@ export function qtdTexto(q: number | null, todos: boolean, unidade: Unidade) {
 }
 
 export const STATUS: Record<StatusEvento, { rotulo: string; cor: string }> = {
-  planejado: { rotulo: 'Montando lista', cor: 'bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-200' },
-  lista_pronta: { rotulo: 'Lista pronta', cor: 'bg-sky-100 text-sky-800 dark:bg-sky-900/60 dark:text-sky-200' },
-  saiu: { rotulo: 'Em evento', cor: 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200' },
-  fechado: { rotulo: 'Fechado', cor: 'bg-brand-100 text-brand-800 dark:bg-brand-900/60 dark:text-brand-200' },
+  planejado: { rotulo: 'Montando lista', cor: 'bg-stone-200 text-stone-700' },
+  lista_pronta: { rotulo: 'Lista pronta', cor: 'bg-sky-100 text-sky-800' },
+  saiu: { rotulo: 'Em evento', cor: 'bg-amber-100 text-amber-800' },
+  fechado: { rotulo: 'Fechado', cor: 'bg-brand-100 text-brand-800' },
 }
 
 const MINUSCULAS = new Set(['e', 'de', 'da', 'do', 'das', 'dos', 'a', 'o', 'em', 'com', 'para', 'por'])
